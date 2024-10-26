@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden; /* Prevent scrollbars */
+    background-color: black; /* Set background to black */
 }
 
 .background {
@@ -10,38 +11,18 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #6d5dfc, #b4a0f9);
-    z-index: -1; /* Send background behind other elements */
-    transform: translateZ(-1px) scale(2); /* 3D effect */
-    animation: zoom 20s infinite alternate; /* Add zoom effect */
-}
-
-@keyframes zoom {
-    0% {
-        transform: translateZ(-1px) scale(1.1);
-    }
-    100% {
-        transform: translateZ(-1px) scale(1.3);
-    }
+    background: url('your-image-url.jpg') no-repeat center center/cover; /* Replace with your image */
+    z-index: -1; /* Ensure background is behind everything */
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
     position: relative;
-    transform: translateZ(0); /* Reset transform for container */
-    animation: float 6s ease-in-out infinite; /* Floating animation */
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
@@ -51,42 +32,29 @@ h1 {
 
 label {
     display: block;
-    margin: 15px 0 5px;
+    margin-bottom: 5px;
+    color: #333;
 }
 
-input {
+input, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-color: #6d5dfc;
-    outline: none;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 button {
-    margin-top: 20px;
     width: 100%;
     padding: 10px;
-}
-
-button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px;
-    background-color: #6d5dfc;
-    border: none;
-    border-radius: 5px;
+    background-color: #007bff;
     color: white;
-    font-size: 16px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
-    background-color: #b4a0f9;
-    transform: scale(1.05); /* Slightly enlarge button on hover */
+    background-color: #0056b3;
 }

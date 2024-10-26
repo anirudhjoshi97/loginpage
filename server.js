@@ -14,7 +14,9 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname))); // Serve static files
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/userSignup', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/userSignup', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected...'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
 // Define User Schema
 const userSchema = new mongoose.Schema({
@@ -33,6 +35,7 @@ app.get('/', (req, res) => {
 
 // Signup Endpoint
 app.post('/signup', async (req, res) => {
+    console.log('Signup request body:', req.body); // Log incoming request body for debugging
     const { name, phone, email, password } = req.body;
 
     // Validate phone number length
@@ -40,8 +43,8 @@ app.post('/signup', async (req, res) => {
         return res.status(400).json({ message: "Invalid phone number. Must be 10 digits." });
     }
 
-    // Check for duplicates
     try {
+        // Check for duplicates
         const existingUser = await User.findOne({ $or: [{ phone }, { email }] });
         if (existingUser) {
             if (existingUser.phone === phone) {
@@ -61,11 +64,11 @@ app.post('/signup', async (req, res) => {
         res.status(201).json({ message: "User signed up successfully!" });
         
     } catch (error) {
+        console.error("Error signing up user:", error); // Log error details
         if (error.code === 11000) {
-            // Handle duplicate key error
             return res.status(400).json({ message: "Phone number or email already exists." });
         }
-        res.status(500).json({ message: "Error signing up user!" });
+        return res.status(500).json({ message: "Error signing up user: " + error.message });
     }
 });
 
@@ -87,6 +90,7 @@ app.post('/login', async (req, res) => {
         // If login is successful
         res.json({ success: true, message: "Login successful!" });
     } catch (error) {
+        console.error("Error logging in:", error); // Log error details
         res.status(500).json({ message: "Error logging in." });
     }
 });
